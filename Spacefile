@@ -5,3 +5,4 @@ micros:
     src: ./
     engine: next
     primary: true
+    public: true

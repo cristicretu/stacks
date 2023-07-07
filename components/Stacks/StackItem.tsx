@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { KeyedMutator } from 'swr/_internal'
 
-import { IStack } from 'pages/api/stack'
+import { IStacks } from 'pages/api/stacks'
 
 function StackItem({
   id,
@@ -13,7 +13,7 @@ function StackItem({
   id?: string
   title: string
   children?: React.ReactNode
-  mutate?: KeyedMutator<IStack[]>
+  mutate?: KeyedMutator<IStacks[]>
 }) {
   const [updatedTitle, setUpdatedTitle] = useState(title)
   const [updatedDescription, setUpdatedDescription] = useState(children)
