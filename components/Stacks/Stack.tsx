@@ -6,7 +6,7 @@ import { IStacks } from 'pages/api/stacks'
 
 import StackItem from './StackItem'
 
-export default function Stack() {
+export default function Stack({ editable = true }: { editable?: boolean }) {
   const { data, error, mutate } = useSWR<IStacks[]>('/api/stacks', key =>
     fetch(key).then(res => res.json())
   )
@@ -18,6 +18,7 @@ export default function Stack() {
 
   const createStack = useCallback(
     async (title = 'title', description = 'description') => {
+      if (!editable) return
       await fetch('/api/stacks', {
         method: 'POST',
         headers: {
@@ -38,7 +39,7 @@ export default function Stack() {
       //   descriptionRef.current.blur()
       // }
     },
-    [mutate, setNewDescription, setNewTitle]
+    [editable, mutate]
   )
 
   useEffect(() => {
@@ -46,11 +47,19 @@ export default function Stack() {
       newTitle &&
       newDescription &&
       titleFocused === false &&
-      descriptionFocused === false
+      descriptionFocused === false &&
+      editable
     ) {
       createStack(newTitle, newDescription)
     }
-  }, [newTitle, newDescription, createStack, titleFocused, descriptionFocused])
+  }, [
+    newTitle,
+    newDescription,
+    createStack,
+    titleFocused,
+    descriptionFocused,
+    editable,
+  ])
 
   if (error) {
     return <div>Failed to load stacks</div>
@@ -67,44 +76,51 @@ export default function Stack() {
           id={stack.key}
           key={stack.key}
           mutate={mutate}
+          editable={editable}
         >
           {stack.description}
         </StackItem>
       ))}
-      <span className='block items-center gap-4' key='hello-world'>
-        <input
-          type='text'
-          value={newTitle}
-          placeholder='title'
-          onChange={e => {
-            const newTitle = e.target.value
-            setNewTitle(newTitle)
-          }}
-          className='text-secondary bg-transparent border-none focus:border-transparen focus:ring-0 focus:outline-none'
-          onFocus={() => {
-            setTitleFocused(true)
-          }}
-          onBlur={() => {
-            setTitleFocused(false)
-          }}
-        ></input>
-        <input
-          type='text'
-          value={newDescription}
-          placeholder='description'
-          onChange={e => {
-            const newDescription = e.target.value
-            setNewDescription(newDescription)
-          }}
-          className='text-secondary hover:text-primary text-quaternary bg-transparent border-none focus:border-transparent focus:outline-none focus:ring-0 w-full transition-all duration-200'
-          onFocus={() => {
-            setDescriptionFocused(true)
-          }}
-          onBlur={() => {
-            setDescriptionFocused(false)
-          }}
-        ></input>
-      </span>
+      {editable && (
+        <span className='block items-center gap-4' key='hello-world'>
+          <input
+            type='text'
+            value={newTitle}
+            placeholder='title'
+            onChange={e => {
+              if (!editable) return
+              const newTitle = e.target.value
+              setNewTitle(newTitle)
+            }}
+            className='text-secondary bg-transparent border-none focus:border-transparen focus:ring-0 focus:outline-none'
+            onFocus={() => {
+              setTitleFocused(true)
+            }}
+            disabled={!editable}
+            onBlur={() => {
+              setTitleFocused(false)
+            }}
+          ></input>
+          <input
+            type='text'
+            value={newDescription}
+            placeholder='description'
+            onChange={e => {
+              if (!editable) return
+              const newDescription = e.target.value
+              setNewDescription(newDescription)
+            }}
+            disabled={!editable}
+            className='text-secondary hover:text-primary text-quaternary bg-transparent border-none focus:border-transparent focus:outline-none focus:ring-0 w-full transition-all duration-200'
+            onFocus={() => {
+              setDescriptionFocused(true)
+            }}
+            onBlur={() => {
+              setDescriptionFocused(false)
+            }}
+          ></input>
+        </span>
+      )}
     </>
   )
 }

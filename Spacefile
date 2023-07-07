@@ -5,4 +5,5 @@ micros:
     src: ./
     engine: next
     primary: true
-    public: true
+    public_routes:
+      - '/'
