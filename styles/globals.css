@@ -78,7 +78,7 @@
   }
 
   body {
-    @apply p-0 m-0 font-sans;
+    @apply p-0 m-0 font-mono;
   }
 
   body:after {
@@ -90,47 +90,6 @@
     left: -50%;
     z-index: -1;
     @apply bg-white dark:bg-black;
-  }
-}
-
-@layer components {
-  /* needed to override tailwind forms styles */
-  select {
-    @apply w-full px-4 py-2 border border-gray-200 rounded outline-none text-primary bg-gray-1000 bg-opacity-5 hover:bg-opacity-10 focus:border-gray-1000 focus:outline-none focus:ring-0 dark:border-gray-800 dark:bg-white dark:focus:border-gray-600;
-  }
-
-  button:focus,
-  a:focus {
-    @apply outline-none ring-2 ring-blue-500 ring-offset-2 ring-offset-white dark:ring-blue-500 dark:ring-offset-black;
-  }
-
-  button:active:not(:focus-visible),
-  a:active:not(:focus-visible),
-  button:focus:not(:focus-visible),
-  a:focus:not(:focus-visible) {
-    @apply outline-none ring-0 ring-offset-0;
-  }
-
-  input[type='text'],
-  textarea {
-    @apply bg-white border border-gray-200 outline-none dark:border-gray-700 dark:bg-gray-800;
-  }
-
-  input[type='checkbox'] {
-    @apply dark:border-gray-600 dark:bg-gray-700;
-  }
-
-  input:focus,
-  textarea:focus {
-    @apply outline-none ring-2 ring-blue-500 ring-offset-2 ring-offset-white dark:ring-offset-black;
-  }
-
-  .font-list-heading {
-    @apply font-sans text-lg font-bold text-primary;
-  }
-
-  .tabbed-navigation::-webkit-scrollbar {
-    display: none;
   }
 }
 
