@@ -9,3 +9,5 @@ micros:
       - '/'
       - '/api/stack_public'
       - '/api/stacks_public'
+      - '_next/static/*'
+      - 'static/*'
