@@ -6,4 +6,4 @@ micros:
     engine: next
     primary: true
     public_routes:
-      - '/'
+      - "/"
