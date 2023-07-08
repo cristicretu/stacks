@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 
@@ -22,7 +20,7 @@ export default function Home() {
 }
 
 function Header() {
-  const { data, error, mutate } = useSWR<IStack[]>('/api/stack', key =>
+  const { data, error } = useSWR<IStack[]>('/api/stack_public', key =>
     fetch(key).then(res => res.json())
   )
   const router = useRouter()
@@ -94,20 +92,17 @@ function HeaderItem({
   title: string
   children?: React.ReactNode
 }) {
-  const [updatedName, setName] = useState(title)
-  const [updatedDescription, setDescription] = useState(children)
-
   return (
     <span>
       <input
         type='text'
-        value={updatedName}
+        value={title}
         disabled
         className='text-secondary bg-transparent border-none focus:border-transparen focus:ring-0 focus:outline-none'
       ></input>
       <input
         type='text'
-        value={updatedDescription as string}
+        value={children as string}
         disabled
         className='text-secondary hover:text-primary text-quaternary bg-transparent border-none focus:border-transparent focus:outline-none focus:ring-0 w-full transition-all duration-200'
       ></input>

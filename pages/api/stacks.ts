@@ -13,12 +13,7 @@ export default async function handler(
 ) {
   // Connect to a Base for storing todo items.
   const base = Base('stacks')
-  if (request.method === 'GET') {
-    // Fetch all items from the Base.
-    const stacks = await base.fetch()
-    // Return the items as JSON.
-    response.status(200).json(stacks.items)
-  } else if (request.method === 'POST') {
+  if (request.method === 'POST') {
     // Get the item from the request body.
     const item = await request.body
     // Put the item into the Base.

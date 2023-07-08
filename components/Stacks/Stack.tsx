@@ -7,7 +7,7 @@ import { IStacks } from 'pages/api/stacks'
 import StackItem from './StackItem'
 
 export default function Stack({ editable = true }: { editable?: boolean }) {
-  const { data, error, mutate } = useSWR<IStacks[]>('/api/stacks', key =>
+  const { data, error, mutate } = useSWR<IStacks[]>('/api/stacks_public', key =>
     fetch(key).then(res => res.json())
   )
 

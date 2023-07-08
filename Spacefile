@@ -6,4 +6,6 @@ micros:
     engine: next
     primary: true
     public_routes:
-      - "/"
+      - '/'
+      - '/api/stack_public'
+      - '/api/stacks_public'

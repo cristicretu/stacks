@@ -21,7 +21,7 @@ export default function Edit() {
 }
 
 function Header() {
-  const { data, error, mutate } = useSWR<IStack[]>('/api/stack', key =>
+  const { data, error, mutate } = useSWR<IStack[]>('/api/stack_public', key =>
     fetch(key).then(res => res.json())
   )
 

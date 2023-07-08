@@ -13,10 +13,7 @@ export default async function handler(
 ) {
   // Connect to a Base for storing todo items.
   const base = Base('name')
-  if (request.method === 'GET') {
-    const stacks = await base.fetch()
-    response.status(200).json(stacks.items)
-  } else if (request.method == 'POST') {
+  if (request.method == 'POST') {
     const { name, description } = await request.body
     const existing = await base.fetch({ name })
     if (existing.items.length > 0) {
