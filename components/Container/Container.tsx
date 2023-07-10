@@ -76,7 +76,7 @@ export default function Container(props: any) {
         >
           <div className='flex flex-row items-center gap-4'>
             <a
-              href='https://deta.space/discovery/@cristi/stacks'
+              href='https://deta.space/discovery/@cristicretu/stacks'
               className='transition-all cursor-pointer hover:text-primary'
               target='_blank'
               rel='noreferrer'
