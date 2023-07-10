@@ -1,8 +1,13 @@
 ---
-title: 'Next.js App Example'
-tagline: 'A simple Next.js app deployed on Space'
-git: 'https://github.com/deta/starters/tree/main/next-app'
-theme_color: '#000000'
+title: 'stacks'
+tagline: 'share your stack of tools'
+git: 'https://github.com/cristicretu/stacks'
+theme_color: '#181818'
 ---
 
-## Features
+A grid of stacks (title x description) where you could share anything you'd want:
+
+- Currently reading
+- Favorite editor
+- Workstation
+- ...

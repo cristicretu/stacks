@@ -1,5 +1,6 @@
 # Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
 v: 0
+icon: ./public/static/stacks.png
 micros:
   - name: stacks
     src: ./
