@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import useSWR from 'swr'
 
 import Container from 'components/Container'
@@ -22,7 +23,7 @@ function Header() {
   const { data, error } = useSWR<IStack[]>('/api/stack_public', key =>
     fetch(key).then(res => res.json())
   )
-
+  const router = useRouter()
   // const [ran, setRan] = useState(false)
 
   // async function createStack(
@@ -48,6 +49,14 @@ function Header() {
     return <div>Failed to load</div>
   }
   if (!data) {
+    return <div>Loading...</div>
+  }
+
+  if (data[0] === undefined) {
+    // createStack()
+    // switch to url /edit
+    router.push('/edit')
+
     return <div>Loading...</div>
   }
 

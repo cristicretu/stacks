@@ -12,6 +12,14 @@ export default function Edit() {
     <Container>
       <div className='flex flex-col gap-16 font-mono'>
         <Header />
+        <p className='text-tertiary'>
+          ˆto add a new stack, fill in the two fields and click away to confirm.{' '}
+          <br />
+          ˆto edit a stack, click the title or description and start typing.{' '}
+          <span className='text-xs'>(or use tab)</span>
+          <br />
+          ˆto delete a stack, hover over it.
+        </p>
         <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
           <Stack />
         </div>

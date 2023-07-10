@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from 'react'
 
-import { useRouter } from 'next/dist/client/router'
+// import { useRouter } from 'next/dist/client/router'
 import Head from 'next/head'
 import { useTheme } from 'next-themes'
-import useSWR from 'swr'
+// import useSWR from 'swr'
 
 import Footer from 'components/Footer/Footer'
 import cn from 'lib/classNames'
-import { IStack } from 'pages/api/stack'
+// import { IStack } from 'pages/api/stack'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Container(props: any) {
   const [mounted, setMounted] = useState<boolean>(false)
   const { resolvedTheme, setTheme } = useTheme()
-  const { data } = useSWR<IStack[]>('/api/stack_public', key =>
-    fetch(key).then(res => res.json())
-  )
+  // const { data } = useSWR<IStack[]>('/api/stack_public', key =>
+  //   fetch(key).then(res => res.json())
+  // )
 
   const { children, ...customMeta } = props
-  const router = useRouter()
+  // const router = useRouter()
 
   const meta = {
-    title: data ? data[0].name : 'space user',
-    description: data ? data[0].description : 'join deta space',
+    title: 'space user',
+    description: 'join deta space',
     type: 'website',
     ...customMeta,
   }
@@ -31,13 +31,13 @@ export default function Container(props: any) {
     setMounted(true)
   }, [])
 
-  if (data && data[0] === undefined) {
-    // createStack()
-    // switch to url /edit
-    router.push('/edit')
+  // if (data && data[0] === undefined) {
+  //   // createStack()
+  //   // switch to url /edit
+  //   router.push('/edit')
 
-    return <div>Loading...</div>
-  }
+  //   return <div>Loading...</div>
+  // }
 
   return (
     <>
