@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 // import { useRouter } from 'next/dist/client/router'
 import Head from 'next/head'
-import { useTheme } from 'next-themes'
 // import useSWR from 'swr'
 
 import Footer from 'components/Footer/Footer'
@@ -11,8 +10,6 @@ import cn from 'lib/classNames'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Container(props: any) {
-  const [mounted, setMounted] = useState<boolean>(false)
-  const { resolvedTheme, setTheme } = useTheme()
   // const { data } = useSWR<IStack[]>('/api/stack_public', key =>
   //   fetch(key).then(res => res.json())
   // )
@@ -26,10 +23,6 @@ export default function Container(props: any) {
     type: 'website',
     ...customMeta,
   }
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   // if (data && data[0] === undefined) {
   //   // createStack()
@@ -74,35 +67,7 @@ export default function Container(props: any) {
             'rounded-lg'
           )}
         >
-          <div className='flex flex-row items-center gap-4'>
-            <a
-              href='https://deta.space/discovery/@cristicretu/stacks'
-              className='transition-all cursor-pointer hover:text-primary'
-              target='_blank'
-              rel='noreferrer'
-            >
-              stacks
-            </a>
-
-            <button
-              aria-label='Toggle Dark Mode'
-              type='button'
-              className='flex items-center justify-center transition-all bg-gray-200 rounded-lg px-2 py-0.5 dark:bg-gray-600 hover:ring-2 ring-gray-300'
-              onClick={() =>
-                setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
-              }
-            >
-              {mounted && (
-                <>
-                  {resolvedTheme === 'dark' ? (
-                    <span>light</span>
-                  ) : (
-                    <span>dark</span>
-                  )}
-                </>
-              )}
-            </button>
-          </div>
+          <div className='flex flex-row items-center gap-4'></div>
           <div>{children}</div>
           <footer>
             <Footer />
