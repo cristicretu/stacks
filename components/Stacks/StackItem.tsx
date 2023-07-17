@@ -4,6 +4,21 @@ import { KeyedMutator } from 'swr/_internal'
 
 import { IStacks } from 'pages/api/stacks'
 
+function isLink(str: string) {
+  const websiteRegex =
+    /^(https?:\/\/)?(www\.)?[a-zA-Z0-9_-]+\.[a-zA-Z]+(\/\S*)?$/
+  return websiteRegex.test(str)
+}
+
+function shortenLink(str: string) {
+  // if it starts with http:// or https://
+  if (/^(http|https):\/\/[^ "]+$/.test(str)) {
+    // remove http:// or https://
+    return str.replace(/^(http|https):\/\//, '')
+  }
+  return str
+}
+
 function StackItem({
   id,
   title,
@@ -85,7 +100,7 @@ function StackItem({
         disabled={!editable}
         className='text-secondary bg-transparent border-none focus:border-transparen focus:ring-0 focus:outline-none'
       ></input>
-      <input
+      {/* <input
         type='text'
         value={updatedDescription as string}
         onChange={e => {
@@ -95,9 +110,53 @@ function StackItem({
         }}
         disabled={!editable}
         className='text-secondary hover:text-primary text-quaternary bg-transparent border-none focus:border-transparent focus:outline-none focus:ring-0 w-full transition-all duration-200'
-      ></input>
+      ></input> */}
+      <Comp
+        as={
+          editable ? 'input' : isLink(updatedDescription as string) ? 'a' : 'p'
+        }
+        value={updatedDescription as string}
+        placeholder='description'
+        onChange={(e: { target: { value: any } }) => {
+          if (!editable) return
+          const newDescription = e.target.value
+          setUpdatedDescription(newDescription)
+        }}
+        href={
+          // if it starts with http:// or https://
+          /^(http|https):\/\/[^ "]+$/.test(updatedDescription as string)
+            ? (updatedDescription as string)
+            : `https://${updatedDescription as string}`
+        }
+        disabled={!editable && !isLink(updatedDescription as string)}
+        className={`text-secondary ${
+          isLink(updatedDescription as string)
+            ? 'cursor-pointer'
+            : 'cursor-auto'
+        } hover:text-primary text-quaternary bg-transparent border-none focus:border-transparent focus:outline-none focus:ring-0 w-full transition-all duration-200`}
+        rel='noreferrer noopener'
+        target='_blank'
+      >
+        {!editable && <span>{shortenLink(updatedDescription as string)}</span>}
+      </Comp>
     </span>
   )
 }
 
 export default StackItem
+
+function Comp({
+  as,
+  children,
+  ...props
+}: {
+  [key: string]: any
+  as: any
+  children?: React.ReactNode
+}): JSX.Element {
+  const Component = as
+  if (Component === 'input') {
+    return <Component {...props} />
+  }
+  return <Component {...props}>{children}</Component>
+}
