@@ -2,22 +2,9 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { KeyedMutator } from 'swr/_internal'
 
+import { Comp } from 'components/Comp'
+import { isLink, shortenLink } from 'lib/link'
 import { IStacks } from 'pages/api/stacks'
-
-function isLink(str: string) {
-  const websiteRegex =
-    /^(https?:\/\/)?(www\.)?[a-zA-Z0-9_-]+\.[a-zA-Z]+(\/\S*)?$/
-  return websiteRegex.test(str)
-}
-
-function shortenLink(str: string) {
-  // if it starts with http:// or https://
-  if (/^(http|https):\/\/[^ "]+$/.test(str)) {
-    // remove http:// or https://
-    return str.replace(/^(http|https):\/\//, '')
-  }
-  return str
-}
 
 function StackItem({
   id,
@@ -144,19 +131,3 @@ function StackItem({
 }
 
 export default StackItem
-
-function Comp({
-  as,
-  children,
-  ...props
-}: {
-  [key: string]: any
-  as: any
-  children?: React.ReactNode
-}): JSX.Element {
-  const Component = as
-  if (Component === 'input') {
-    return <Component {...props} />
-  }
-  return <Component {...props}>{children}</Component>
-}

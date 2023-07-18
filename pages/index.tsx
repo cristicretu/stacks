@@ -1,8 +1,10 @@
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 
+import { Comp } from 'components/Comp'
 import Container from 'components/Container'
 import Stack from 'components/Stacks/Stack'
+import { isLink, shortenLink } from 'lib/link'
 
 import { IStack } from './api/stack'
 
@@ -92,19 +94,31 @@ function HeaderItem({
   children?: React.ReactNode
 }) {
   return (
-    <span>
+    <span className='flex flex-col'>
       <input
         type='text'
         value={title}
         disabled
         className='text-secondary bg-transparent border-none focus:border-transparen focus:ring-0 focus:outline-none'
       ></input>
-      <input
-        type='text'
+      <Comp
+        as={isLink(children as string) ? 'a' : 'p'}
         value={children as string}
-        disabled
-        className='text-secondary hover:text-primary text-quaternary bg-transparent border-none focus:border-transparent focus:outline-none focus:ring-0 w-full transition-all duration-200'
-      ></input>
+        placeholder='description'
+        href={
+          // if it starts with http:// or https://
+          /^(http|https):\/\/[^ "]+$/.test(children as string)
+            ? (children as string)
+            : `https://${children as string}`
+        }
+        className={`text-secondary ${
+          isLink(children as string) ? 'cursor-pointer' : 'cursor-auto'
+        } hover:text-primary text-quaternary bg-transparent border-none focus:border-transparent focus:outline-none focus:ring-0 w-full transition-all duration-200`}
+        rel='noreferrer noopener'
+        target='_blank'
+      >
+        <span>{shortenLink(children as string)}</span>
+      </Comp>
     </span>
   )
 }
