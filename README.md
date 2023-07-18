@@ -28,3 +28,9 @@ To push your changes to space, and respectively create a release use
 space push
 # space release
 ```
+
+## Contributing
+
+i made this during an internal hackaton so i skipped a lot of steps
+
+so feel free to modify / hack things around and submit a pr :)
